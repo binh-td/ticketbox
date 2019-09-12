@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchPage from './components/SearchPage';
+import SearchPage from './Components/SearchPage';
 
 function App() {
   return (
