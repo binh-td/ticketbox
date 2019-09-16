@@ -7,7 +7,7 @@ class TicketImport extends React.Component {
     super(props)
     this.state = {
       file: {},
-      ticketDatas: this.props.ticketDatas,
+      ticketDatas: [],
     }
     this.importOnChangeHandle = this.importOnChangeHandle.bind(this)
     this.deleteBtnOnClick = this.deleteBtnOnClick.bind(this)
@@ -38,6 +38,10 @@ class TicketImport extends React.Component {
     this.setState({
       ticketDatas: this.state.ticketDatas.filter((detail, i) => i !== index)
     })
+  }
+
+  componentDidMount() {
+    
   }
 
   componentDidUpdate(prevProps, prevState) {
