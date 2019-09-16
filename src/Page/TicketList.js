@@ -10,8 +10,9 @@ class TicketList extends React.Component {
     this.state = {
       showDetail: false,
       currentPage: 1,
-      ticketsPerPage: 4,
+      ticketsPerPage: 10,
       tickets: tickets,
+      currentTicket: 0,
       searchchannel: "",
       searchcode: "",
       searchphone: "",
@@ -26,6 +27,7 @@ class TicketList extends React.Component {
     this.previousPage = this.previousPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.lastPage = this.lastPage.bind(this)
+    this.saveButtonOnclick = this.saveButtonOnclick.bind(this)
   }
 
   handleClose() {
@@ -34,9 +36,10 @@ class TicketList extends React.Component {
     })
   }
 
-  handleShow() {
+  handleShow(index) {
     this.setState({
-      show: true
+      show: true,
+      currentTicket: index
     })
   }
 
@@ -72,6 +75,15 @@ class TicketList extends React.Component {
       })
   }
 
+  saveButtonOnclick(status, code) {
+    let tickets = this.state.tickets
+    tickets.map((ticket, index) => ticket.code === code ? ticket.status = status : ticket.status)
+    this.setState({
+      show: false,
+      tickets: tickets
+    })
+  }
+
   render() {
     const currentPage = this.state.currentPage,
       ticketsPerPage = this.state.ticketsPerPage
@@ -79,10 +91,10 @@ class TicketList extends React.Component {
       indexOfFirstTicket = indexOfLastTicket - ticketsPerPage,
       currentTickets = tickets.slice(indexOfFirstTicket, indexOfLastTicket)
 
-    const ticketsRender = currentTickets.map(ticket => {
+    const ticketsRender = currentTickets.map((ticket, index) => {
       return (
         <>
-          <tr>
+          <tr key={ticket.code}>
             <td>{ticket.channel}</td>
             <td>{ticket.code}</td>
             <td>2019/09/10</td>
@@ -95,24 +107,11 @@ class TicketList extends React.Component {
             <td>{ticket.status}</td>
             <td>{ticket.tranfercode}</td>
             <td>
-              <a href="#" onClick={this.handleShow}>
+              <a href="#" onClick={() => this.handleShow(currentPage * ticketsPerPage - ticketsPerPage + index)}>
                 Sửa
               </a>
             </td>
           </tr>
-          <TicketDetail
-            handleClose={this.handleClose}
-            show={this.state.show}
-            channel={ticket.channel}
-            code={ticket.code}
-            name={ticket.name}
-            phone={ticket.phone}
-            email={ticket.email}
-            address={ticket.address}
-            quantity={ticket.quatity}
-            total={ticket.total}
-            status={ticket.status}
-          />
         </>
       )
     })
@@ -200,6 +199,20 @@ class TicketList extends React.Component {
           <tbody>{ticketsRender}</tbody>
         </Table>
         {renderPageNumbers}
+        <TicketDetail
+            handleClose={this.handleClose}
+            show={this.state.show}
+            channel={tickets[this.state.currentTicket].channel}
+            code={tickets[this.state.currentTicket].code}
+            name={tickets[this.state.currentTicket].name}
+            phone={tickets[this.state.currentTicket].phone}
+            email={tickets[this.state.currentTicket].email}
+            address={tickets[this.state.currentTicket].address}
+            quantity={tickets[this.state.currentTicket].quatity}
+            total={tickets[this.state.currentTicket].total}
+            status={tickets[this.state.currentTicket].status}
+            saveButtonOnclick={this.saveButtonOnclick}
+          />
       </div>
     )
   }
