@@ -1,8 +1,10 @@
 import React from "react"
 import "./App.css"
 import "bootstrap/dist/css/bootstrap.min.css"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TicketDetail from "./Page/TicketDetail"
 import TicketImport from "./Page/TicketImport"
+import TicketList from "./Page/TicketList"
 
 class App extends React.Component {
   constructor(props) {
@@ -14,9 +16,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <TicketImport />
-      </div>
+      <Router>
+          <Route exact path="/" component={TicketList} />
+          <Route exact path="/detail" component={TicketDetail} />
+          <Route exact path="/import" component={TicketImport} />
+      </Router>
     )
   }
 }
