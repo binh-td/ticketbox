@@ -1,13 +1,14 @@
 import React from "react"
 import { Form, Table, Button } from "react-bootstrap"
 import XLSX from "xlsx"
+import axios from "axios"
 
 class TicketImport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       file: {},
-      ticketDatas: [],
+      ticketDatas: []
     }
     this.importOnChangeHandle = this.importOnChangeHandle.bind(this)
     this.deleteBtnOnClick = this.deleteBtnOnClick.bind(this)
@@ -16,7 +17,7 @@ class TicketImport extends React.Component {
   importOnChangeHandle(e) {
     const file = e.target.files
     const date = new Date()
-    const dateTime = date.toLocaleString('vi-VN')
+    const dateTime = date.toLocaleString("vi-VN")
 
     if (file && file[0]) {
       this.setState({
@@ -27,7 +28,7 @@ class TicketImport extends React.Component {
             timeUpload: dateTime,
             saleChannel: e.target.name,
             fileName: file[0].name,
-            data: [],
+            data: []
           }
         ]
       })
@@ -40,9 +41,7 @@ class TicketImport extends React.Component {
     })
   }
 
-  componentDidMount() {
-    
-  }
+  componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.file !== prevState.file) {
@@ -64,14 +63,11 @@ class TicketImport extends React.Component {
         const data = XLSX.utils.sheet_to_json(ws)
         ticketData = {
           ...ticketData,
-          data: data,
+          data: data
         }
         /* Update state */
         this.setState({
-          ticketDatas: [
-            ...this.state.ticketDatas,
-            ticketData
-          ]
+          ticketDatas: [...this.state.ticketDatas, ticketData]
         })
       }
 
@@ -84,7 +80,6 @@ class TicketImport extends React.Component {
   }
 
   render() {
-    console.log(this.state.ticketDatas)
     return (
       <div className="container">
         <h1>Quản lý import vé</h1>
