@@ -2,6 +2,19 @@ import React from "react"
 import { Modal, Form, Button } from "react-bootstrap"
 
 class TicketDetail extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      status: "Đã thanh toán"
+    }
+    this.selectOnchangeHandle = this.selectOnchangeHandle.bind(this)
+  }
+
+  selectOnchangeHandle(e) {
+    this.setState({
+      status: e.target.value
+    })
+  }
 
   render() {
     return (
@@ -35,10 +48,15 @@ class TicketDetail extends React.Component {
             <p>Địa chỉ: {this.props.address}</p>
             <p>Trạng thái: {this.props.status}</p>
             <div>
-              <Form.Control as="select" style={{ width: "25%"}}>
-                <option>Đã thanh toán</option>
-                <option>Đã chuyển vé</option>
-                <option>Hủy</option>
+              <Form.Control
+                as="select"
+                style={{ width: "25%" }}
+                value={this.state.status}
+                onChange={this.selectOnchangeHandle}
+              >
+                <option value="Đã thanh toán">Đã thanh toán</option>
+                <option value="Đã chuyển vé">Đã chuyển vé</option>
+                <option value="Hủy">Hủy</option>
               </Form.Control>
             </div>
           </Modal.Body>
@@ -46,7 +64,12 @@ class TicketDetail extends React.Component {
             <Button variant="secondary" onClick={this.props.handleClose}>
               Hủy
             </Button>
-            <Button variant="primary" onClick={this.props.handleClose}>
+            <Button
+              variant="primary"
+              onClick={() =>
+                this.props.saveButtonOnclick(this.state.status, this.props.code)
+              }
+            >
               Lưu
             </Button>
           </Modal.Footer>
