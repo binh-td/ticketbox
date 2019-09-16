@@ -28,7 +28,7 @@ export const tickets = [
   {
     "userid": 3,
     "channel": "Ticketgo",
-    "code": "ticketgo123",
+    "code": "ticketgo456",
     "name": "Nguyễn Văn C",
     "phone": "0968556542",
     "email": "nguyenvanc@gmail.com",
