@@ -2,61 +2,38 @@ import React from "react"
 import { Modal, Form, Button } from "react-bootstrap"
 
 class TicketDetail extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show: false
-    }
-    this.handleClose = this.handleClose.bind(this)
-    this.handleShow = this.handleShow.bind(this)
-  }
-
-  handleClose() {
-    this.setState({
-      show: false
-    })
-  }
-
-  handleShow() {
-    this.setState({
-      show: true
-    })
-  }
 
   render() {
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
-          Launch demo modal
-        </Button>
         <Modal
-          show={this.state.show}
+          show={this.props.show}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
-          onHide={this.handleClose}
+          onHide={this.props.handleClose}
         >
           <Modal.Header closeButton>
             <Modal.Title>Chi tiết vé</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="row">
-              <p className="col-6">Kênh bán: Utop</p>
-              <p className="col-6">Mã đơn: Utop</p>
+              <p className="col-6">Kênh bán: {this.props.channel}</p>
+              <p className="col-6">Mã đơn: {this.props.code}</p>
             </div>
             <div className="row">
               <p className="col-6">Ngày mua bán: 20/09/2019</p>
               <p className="col-6">File Import: Utop_2019_09_29.csv</p>
             </div>
-            <p>Số tiền</p>
-            <p>Các loại vé: Vip1 2 vé</p>
-            <p>Tên KH: Nguyễn Văn A</p>
+            <p>Số tiền: {this.props.total}</p>
+            <p>Các loại vé: {this.props.quantity}</p>
+            <p>Tên KH: {this.props.name}</p>
             <div className="row">
-              <p className="col-6">Số điện thoại: 091231283</p>
-              <p className="col-6">Email: htang@lakdf.com</p>
+              <p className="col-6">Số điện thoại: {this.props.phone}</p>
+              <p className="col-6">Email: {this.props.email}</p>
             </div>
-            <p>Địa chỉ: 123 hà nội</p>
-            <p>Trạng thái</p>
+            <p>Địa chỉ: {this.props.address}</p>
+            <p>Trạng thái: {this.props.status}</p>
             <div>
               <Form.Control as="select" style={{ width: "25%"}}>
                 <option>Đã thanh toán</option>
@@ -66,10 +43,10 @@ class TicketDetail extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="secondary" onClick={this.props.handleClose}>
               Hủy
             </Button>
-            <Button variant="primary" onClick={this.handleClose}>
+            <Button variant="primary" onClick={this.props.handleClose}>
               Lưu
             </Button>
           </Modal.Footer>
