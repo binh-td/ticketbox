@@ -7,7 +7,7 @@ class TicketImport extends React.Component {
     super(props)
     this.state = {
       file: {},
-      ticketDatas: [],
+      ticketDatas: this.props.ticketDatas,
     }
     this.importOnChangeHandle = this.importOnChangeHandle.bind(this)
     this.deleteBtnOnClick = this.deleteBtnOnClick.bind(this)
