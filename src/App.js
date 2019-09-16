@@ -12,7 +12,6 @@ class App extends React.Component {
     return (
       <Router>
           <Route exact path="/" component={TicketList} />
-          <Route exact path="/detail" component={TicketDetail} />
           <Route exact path="/import" component={TicketImport} />
       </Router>
     )
